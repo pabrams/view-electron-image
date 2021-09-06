@@ -1,7 +1,6 @@
 // Modules to control application life and create native browser window
-const {app, BrowserWindow} = require('electron')
-const fs = require('fs')
-const path = require('path')
+const {app, BrowserWindow} = require('electron');
+const path = require('path');
 
 function createWindow () {
   // Create the browser window.
@@ -15,7 +14,9 @@ function createWindow () {
     }
   })
   mainWindow.loadFile('index.html');
-  mainWindow.show();
+  mainWindow.once('ready-to-show', () => {
+    mainWindow.show();
+  })
 }
 
 app.whenReady().then(() => {
@@ -29,6 +30,7 @@ app.whenReady().then(() => {
   })
 
 })
+
 
 // Quit when all windows are closed, except on macOS. There, it's common
 // for applications and their menu bar to stay active until the user quits
